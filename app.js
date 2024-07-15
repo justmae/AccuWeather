@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 const dailyForecastDiv = document.getElementById("dailyForecast");
+                dailyForecastDiv.innerHTML = '';
                 
                 data.DailyForecasts.forEach(forecast => {
                     const date = new Date(forecast.Date);
@@ -112,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 const hourlyForecastDiv = document.getElementById("hourlyForecast");
+                hourlyForecastDiv.innerHTML = '';
                 
                 data.forEach(forecast => {
                     const time = new Date(forecast.DateTime).toLocaleTimeString('en-US', { hour: 'numeric', hour12: true });
