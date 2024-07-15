@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function fetchWeatherData(locationKey) {
         fetchDailyForecast(locationKey);
+        fetchHourlyForecast(locationKey);
 
         const url = `http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${apiKey}`;
 
@@ -101,6 +102,44 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error("Error fetching daily forecast:", error);
                 const dailyForecastDiv = document.getElementById("dailyForecast");
                 dailyForecastDiv.innerHTML = `<p>Error fetching daily forecast.</p>`;
+            });
+    }
+
+    function fetchHourlyForecast(locationKey) {
+        const url = `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${locationKey}?apikey=${apiKey}&metric=true`;
+    
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const hourlyForecastDiv = document.getElementById("hourlyForecast");
+                
+                data.forEach(forecast => {
+                    const time = new Date(forecast.DateTime).toLocaleTimeString('en-US', { hour: 'numeric', hour12: true });
+                    const temperature = forecast.Temperature.Value;
+                    const weather = forecast.IconPhrase;
+                    const icon = forecast.WeatherIcon;
+                    
+                    const card = document.createElement('div');
+                    card.classList.add('forecast-card');
+                    card.innerHTML = `
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <img src="icons/${icon}.svg">
+                            </div>
+                            <div class="col-lg-6">
+                                <h3>${time}</h3>
+                                <p>Temperature: ${temperature}°C</p>
+                                <p>Weather: ${weather}</p>
+                            </div>
+                        </div>
+                    `;
+                    hourlyForecastDiv.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching hourly forecast:", error);
+                const hourlyForecastDiv = document.getElementById("hourlyForecast");
+                hourlyForecastDiv.innerHTML = `<p>Error fetching hourly forecast.</p>`;
             });
     }
 });
