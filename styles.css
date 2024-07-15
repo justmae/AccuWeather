@@ -16,7 +16,7 @@ form {
     margin-bottom: 20px;
 }
 
-#cityInput {
+/* #cityInput {
     padding: 10px;
     font-size: 16px;
 }
@@ -35,7 +35,7 @@ button:hover {
     background-color: #45a049;
 }
 
-#weather {
+.weather {
     margin-top: 20px;
     padding: 20px;
     border: 1px solid #ccc;
@@ -51,5 +51,31 @@ h2 {
 }
 
 p {
+    margin: 5px 0;
+} */
+
+.forecast-container {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.forecast-card {
+    display: inline-block;
+    min-width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-inline: 20px;
+}
+
+.forecast-card h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+}
+
+.forecast-card p {
     margin: 5px 0;
 }
